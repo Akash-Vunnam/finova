@@ -3,17 +3,35 @@ import * as admin from 'firebase-admin';
 if (!admin.apps.length) {
   try {
     const serviceAccountStr = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
-    if (serviceAccountStr) {
-      const serviceAccount = JSON.parse(serviceAccountStr);
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-      });
-    } else {
-      console.warn('FIREBASE_SERVICE_ACCOUNT_KEY is missing. Using default credentials (which might fail in some environments).');
+    
+    if (!serviceAccountStr || serviceAccountStr.trim() === '' || serviceAccountStr.startsWith('your_')) {
+      console.warn('⚠️ FIREBASE_SERVICE_ACCOUNT_KEY is missing or contains a placeholder.');
+      console.warn('⚠️ Firebase Admin SDK will initialize with default credentials, which may fail in production unless running on GCP.');
       admin.initializeApp();
+    } else {
+      let serviceAccount;
+      try {
+        // Support both Base64 and raw JSON formats for Render compatibility
+        if (!serviceAccountStr.trim().startsWith('{')) {
+          const decoded = Buffer.from(serviceAccountStr, 'base64').toString('utf8');
+          serviceAccount = JSON.parse(decoded);
+        } else {
+          serviceAccount = JSON.parse(serviceAccountStr);
+        }
+        
+        admin.initializeApp({
+          credential: admin.credential.cert(serviceAccount),
+        });
+        console.log('✅ Firebase Admin SDK initialized successfully.');
+      } catch (parseError) {
+        console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT_KEY. Ensure it is valid JSON or Base64 encoded JSON.');
+        console.error('Error details:', parseError instanceof Error ? parseError.message : String(parseError));
+        // Fallback to default credentials to avoid crashing the server
+        admin.initializeApp();
+      }
     }
   } catch (error) {
-    console.error('Firebase admin initialization error', error);
+    console.error('❌ Unexpected Firebase admin initialization error:', error);
   }
 }
 
