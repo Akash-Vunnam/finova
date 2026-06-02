@@ -16,9 +16,15 @@ const port = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
+import { firebaseStatus } from './services/firebase-admin';
+
 // Health check
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok' });
+  res.status(200).json({ 
+    status: 'ok',
+    firebase: firebaseStatus,
+    timestamp: new Date().toISOString()
+  });
 });
 
 // API Routes

@@ -1,5 +1,7 @@
 import * as admin from 'firebase-admin';
 
+export let firebaseStatus = 'disconnected';
+
 if (!admin.apps.length) {
   try {
     const serviceAccountStr = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
@@ -22,6 +24,7 @@ if (!admin.apps.length) {
         admin.initializeApp({
           credential: admin.credential.cert(serviceAccount),
         });
+        firebaseStatus = 'connected';
         console.log('✅ Firebase Admin SDK initialized successfully.');
       } catch (parseError) {
         console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT_KEY. Ensure it is valid JSON or Base64 encoded JSON.');

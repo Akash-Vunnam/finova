@@ -23,33 +23,27 @@ Finova is structured as a **Monorepo** managed by [Turborepo](https://turbo.buil
 
 ## 💻 Local Development
 
-### Prerequisites
-- Node.js (v20+ recommended)
-- npm or pnpm
-- Firebase Project setup
-- API Keys (Gemini, Alpha Vantage)
-
 ### 1. Environment Setup
 
 Copy the example environment files and fill in your keys.
 
 **Frontend (`frontend/.env.local`)**:
 ```env
-NEXT_PUBLIC_FIREBASE_API_KEY=
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_API_KEY=your_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_API_URL=http://localhost:8080
 ```
 
 **Backend (`backend/.env`)**:
 ```env
-GEMINI_API_KEY=
-FIREBASE_PROJECT_ID=
-FIREBASE_CLIENT_EMAIL=
-FIREBASE_PRIVATE_KEY=
-JWT_SECRET=
+PORT=8080
+GEMINI_API_KEY=your_gemini_key
+ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
+FIREBASE_SERVICE_ACCOUNT_KEY=your_base64_encoded_firebase_json
 ```
 
 ### 2. Install & Run
@@ -66,28 +60,42 @@ npm run dev
 
 - **Frontend:** [http://localhost:3000](http://localhost:3000)
 - **Backend:** [http://localhost:8080](http://localhost:8080)
+- **Backend Health Check:** [http://localhost:8080/health](http://localhost:8080/health)
 
-## 🚀 Deployment
+## 🚀 Production Deployment Guide
 
-Finova is configured for a seamless decoupled deployment model.
+Finova is configured for a seamless decoupled deployment model using Vercel (Frontend) and Render (Backend).
 
-### Vercel (Frontend)
-1. Import the GitHub repository into Vercel.
-2. Set the **Root Directory** to `frontend`.
-3. Add the `NEXT_PUBLIC_*` environment variables.
-4. After the backend is deployed, add `NEXT_PUBLIC_API_URL=https://<your-backend-url>.onrender.com` to point frontend API calls to Render.
+### 1. Render (Backend)
 
-### Render (Backend)
 1. Connect the repository to Render.
 2. Render will automatically detect the `render.yaml` infrastructure-as-code file.
-3. Provide the secret environment variables (`GEMINI_API_KEY`, `ALPHA_VANTAGE_API_KEY`, `FIREBASE_SERVICE_ACCOUNT_KEY`).
-4. Deploy the service.
+3. Provide the secret environment variables below exactly as requested:
 
-## 🤝 Contributing
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+#### Render Environment Variables
 
-## 🛡️ Security
-Please see [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
+| Variable Name | Required | Expected Format | Example |
+| :--- | :--- | :--- | :--- |
+| `GEMINI_API_KEY` | **Yes** | String | `AIzaSyB...` |
+| `ALPHA_VANTAGE_API_KEY` | **Yes** | String | `ABC123XYZ...` |
+| `FIREBASE_SERVICE_ACCOUNT_KEY` | **Yes** | Base64 Encoded JSON String or Raw JSON | `ewogICJ0e...` (Base64 is highly recommended to prevent line-break errors) |
 
-## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+*Note: If `FIREBASE_SERVICE_ACCOUNT_KEY` is missing or invalid, the backend will safely start up but will log a warning and Firebase-dependent routes will return 401 Unauthorized errors instead of crashing.*
+
+### 2. Vercel (Frontend)
+
+1. Import the GitHub repository into Vercel.
+2. **CRITICAL:** Open Build & Development Settings and set the **Root Directory** to `frontend`.
+3. Add the environment variables below exactly as requested:
+
+#### Vercel Environment Variables
+
+| Variable Name | Required | Expected Format | Example |
+| :--- | :--- | :--- | :--- |
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | **Yes** | String | `AIzaSyD...` |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | **Yes** | Domain String | `finova-app.firebaseapp.com` |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | **Yes** | String | `finova-app-1234` |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | **Yes** | Domain String | `finova-app.appspot.com` |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | **Yes** | Numeric String | `1234567890` |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | **Yes** | String | `1:1234567890:web:abcd1234` |
+| `NEXT_PUBLIC_API_URL` | **Yes** | URL String | `https://finova-backend.onrender.com` |
