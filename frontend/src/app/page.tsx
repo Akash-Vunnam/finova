@@ -138,7 +138,7 @@ export default function LandingPage() {
                   <span className="relative z-10 flex items-center gap-2">
                     Launch App 
                     {isLocked ? (
-                      <Lock size={18} className="opacity-70" />
+                      <Lock size={18} className="opacity-0 -translate-x-2 group-hover:opacity-70 group-hover:translate-x-0 transition-all duration-300" />
                     ) : (
                       <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     )}
@@ -148,9 +148,9 @@ export default function LandingPage() {
               </Link>
               
               <Link href={isLocked ? '#' : "/discover"} onClick={handleLockedClick}>
-                <MagneticButton className={`rounded-full bg-white/5 border border-white/10 text-white font-medium px-8 py-4 backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/20 flex items-center gap-2 ${isLocked ? 'cursor-pointer' : ''}`}>
+                <MagneticButton className={`relative group overflow-hidden rounded-full bg-white/5 border border-white/10 text-white font-medium px-8 py-4 backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/20 flex items-center gap-2 ${isLocked ? 'cursor-pointer' : ''}`}>
                   Explore Market
-                  {isLocked && <Lock size={16} className="opacity-70" />}
+                  {isLocked && <Lock size={16} className="opacity-0 -translate-x-2 group-hover:opacity-70 group-hover:translate-x-0 transition-all duration-300" />}
                 </MagneticButton>
               </Link>
             </div>
