@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Newspaper, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { TRENDING_NEWS } from "@/lib/constants/discover-data";
@@ -37,10 +38,11 @@ export function TrendingNews() {
                 {/* Image Placeholder or Real Image */}
                 <div className="relative h-24 w-32 shrink-0 overflow-hidden rounded-xl">
                   {news.imageUrl ? (
-                    <img 
+                    <Image 
                       src={news.imageUrl} 
                       alt={news.title}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (
                     <div className="h-full w-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center">

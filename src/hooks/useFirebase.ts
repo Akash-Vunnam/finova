@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { 
   getHoldings, getTransactions, getMarketData, 
   getUserProfile, subscribeToHoldings, subscribeToPortfolioValue 
-} from '@/services/firestore';
+} from '@/lib/firestore';
 
 export function useHoldings(userId: string = 'demo-user') {
   const [holdings, setHoldings] = useState<any[]>([]);
