@@ -1,9 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, TrendingUp, Shield, Zap } from 'lucide-react';
+import { ArrowRight, TrendingUp, Shield, Zap, Lock } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import LoginModal from '@/components/auth/LoginModal';
 import Hero3D from '@/components/3d/Hero3D';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { MagneticButton } from '@/components/ui/MagneticButton';
@@ -54,6 +56,21 @@ export default function LandingPage() {
     target: heroRef,
     offset: ["start start", "end start"]
   });
+  
+  // Auth state
+  const { isAuthenticated, loading } = useAuth();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("Welcome to Finova");
+  
+  const isLocked = !loading && !isAuthenticated;
+
+  const handleLockedClick = (e: React.MouseEvent) => {
+    if (isLocked) {
+      e.preventDefault();
+      setModalTitle("Please sign in to continue");
+      setIsLoginModalOpen(true);
+    }
+  };
   
   // Parallax: Move floating tickers down at 0.5x speed as user scrolls
   const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 300]);
@@ -116,18 +133,24 @@ export default function LandingPage() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/dashboard">
-                <MagneticButton className="relative group overflow-hidden rounded-full bg-white text-finova-navy font-semibold px-8 py-4 transition-all hover:scale-105">
+              <Link href={isLocked ? '#' : "/dashboard"} onClick={handleLockedClick}>
+                <MagneticButton className={`relative group overflow-hidden rounded-full bg-white text-finova-navy font-semibold px-8 py-4 transition-all hover:scale-105 ${isLocked ? 'cursor-pointer' : ''}`}>
                   <span className="relative z-10 flex items-center gap-2">
-                    Launch App <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    Launch App 
+                    {isLocked ? (
+                      <Lock size={18} className="opacity-70" />
+                    ) : (
+                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    )}
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-finova-purple to-finova-green opacity-0 group-hover:opacity-10 transition-opacity" />
                 </MagneticButton>
               </Link>
               
-              <Link href="/discover">
-                <MagneticButton className="rounded-full bg-white/5 border border-white/10 text-white font-medium px-8 py-4 backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/20">
+              <Link href={isLocked ? '#' : "/discover"} onClick={handleLockedClick}>
+                <MagneticButton className={`rounded-full bg-white/5 border border-white/10 text-white font-medium px-8 py-4 backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/20 flex items-center gap-2 ${isLocked ? 'cursor-pointer' : ''}`}>
                   Explore Market
+                  {isLocked && <Lock size={16} className="opacity-70" />}
                 </MagneticButton>
               </Link>
             </div>
@@ -227,6 +250,12 @@ export default function LandingPage() {
           <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.3,130.83,121.22,200.5,108.6,243.68,100.8,284.15,74.72,321.39,56.44Z" />
         </svg>
       </div>
+
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setIsLoginModalOpen(false)} 
+        title={modalTitle}
+      />
     </div>
   );
 }
