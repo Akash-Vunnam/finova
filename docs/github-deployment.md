@@ -12,7 +12,7 @@ git push -u origin main
 ```
 
 ## Workflows Included
-- **Frontend Build Validation**: Located at `.github/workflows/frontend-build.yml`. Runs `npm run build` on the Vercel-optimized Next.js frontend for every PR.
+- **Frontend Build Validation**: Located at `.github/workflows/frontend-build.yml`. Runs `npm run build` on the Render-optimized Next.js frontend for every PR.
 - **Backend Build Validation**: Located at `.github/workflows/backend-build.yml`. Runs `npm run build` on the Render-optimized Node.js/Express backend for every PR.
 
 Ensure you do not commit any files outside of the `.gitignore` rules.

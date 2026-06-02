@@ -28,10 +28,8 @@
 - [ ] Inject required Backend Environment Variables
 - [ ] Wait for `Live` status and copy the `.onrender.com` URL
 
-## 5. Vercel Deployment (Frontend)
-- [ ] Create a new Project from the GitHub repo
-- [ ] Specify Root Directory as `frontend`
-- [ ] Build command: `npm run build` (auto-detected)
-- [ ] Inject required Frontend Environment Variables
-- [ ] Inject `NEXT_PUBLIC_API_URL` matching the Render URL
+## 5. Render Deployment (Frontend)
+- [ ] Ensure `render.yaml` is configured to deploy the `frontend` service
+- [ ] Inject required Frontend Environment Variables into the Render frontend service
+- [ ] Inject `NEXT_PUBLIC_API_URL` matching the Render backend URL
 - [ ] Deploy and verify the live production site

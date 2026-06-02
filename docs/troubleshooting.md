@@ -1,15 +1,11 @@
 # Troubleshooting Deployment Issues
 
-If you encounter issues deploying Finova to Vercel or Render, check these common pitfalls first.
+If you encounter issues deploying Finova to Render, check these common pitfalls first.
 
-## 1. Vercel Fails to Build
-**Symptom:** Vercel deployment fails with an error complaining about missing packages (like `@google/generative-ai` or `firebase-admin`).
-**Cause:** Vercel is trying to build the backend instead of the frontend.
-**Fix:** Go to your Vercel Project Settings -> General -> Root Directory. Ensure it is set exactly to `frontend`.
-
-**Symptom:** Turbopack or PostCSS errors in the Vercel logs.
-**Cause:** Vercel might be caching a bad build.
-**Fix:** Trigger a new deployment in Vercel with the "Use Build Cache" option turned **OFF**.
+## 1. Render Frontend Fails to Build
+**Symptom:** Render deployment fails with an error complaining about missing packages.
+**Cause:** Render might be running the build command from the root instead of the `frontend` folder.
+**Fix:** Ensure the Build Command for the frontend service in `render.yaml` or Render dashboard specifies `cd frontend && npm install && npm run build`.
 
 ## 2. Render Backend Crashes on Startup
 **Symptom:** Render logs say `listen EADDRINUSE: address already in use :::8080`.
@@ -21,6 +17,6 @@ If you encounter issues deploying Finova to Vercel or Render, check these common
 **Fix:** Ensure you pasted the exact, complete JSON string. Example format: `{"type": "service_account", "project_id": "..."}` without arbitrary line breaks.
 
 ## 3. UI Doesn't Match the Live Backend
-**Symptom:** You deploy the backend, but the Vercel frontend is still making API calls to `localhost`.
-**Cause:** The `NEXT_PUBLIC_API_URL` environment variable is missing on Vercel.
-**Fix:** Add `NEXT_PUBLIC_API_URL=https://<your-render-url>.onrender.com` to Vercel's environment variables and **REDEPLOY**. Next.js statically bakes public variables at build time, so a new build is strictly required after changing `NEXT_PUBLIC_` variables.
+**Symptom:** You deploy the backend, but the frontend is still making API calls to `localhost`.
+**Cause:** The `NEXT_PUBLIC_API_URL` environment variable is missing on Render.
+**Fix:** Add `NEXT_PUBLIC_API_URL=https://<your-backend-url>.onrender.com` to Render's environment variables for the frontend service and **REDEPLOY**. Next.js statically bakes public variables at build time, so a new build is strictly required after changing `NEXT_PUBLIC_` variables.

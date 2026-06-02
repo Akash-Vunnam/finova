@@ -10,7 +10,7 @@
 - **AI-Powered Insights:** Integrated with Google Gemini for intelligent market breakdowns, stock verdicts, and deep-research chat.
 - **Real-Time Data:** Pulls live market trends, news, and stock analytics via Alpha Vantage.
 - **Secure Authentication:** Firebase Authentication manages user sessions with robust, token-based verification.
-- **Decoupled Architecture:** Clean separation between the Vercel-hosted frontend and the Render-hosted Express backend, orchestrated by Turborepo.
+- **Decoupled Architecture:** Clean separation between the frontend and the Express backend, deployed as separate services on Render.
 
 ## 🏗️ Architecture & Tech Stack
 
@@ -64,7 +64,7 @@ npm run dev
 
 ## 🚀 Production Deployment Guide
 
-Finova is configured for a seamless decoupled deployment model using Vercel (Frontend) and Render (Backend).
+Finova is configured for a seamless decoupled deployment model using Render for both the Frontend and Backend.
 
 ### 1. Render (Backend)
 
@@ -82,13 +82,12 @@ Finova is configured for a seamless decoupled deployment model using Vercel (Fro
 
 *Note: If `FIREBASE_SERVICE_ACCOUNT_KEY` is missing or invalid, the backend will safely start up but will log a warning and Firebase-dependent routes will return 401 Unauthorized errors instead of crashing.*
 
-### 2. Vercel (Frontend)
+### 2. Render (Frontend)
 
-1. Import the GitHub repository into Vercel.
-2. **CRITICAL:** Open Build & Development Settings and set the **Root Directory** to `frontend`.
-3. Add the environment variables below exactly as requested:
+1. The frontend is automatically handled via the `render.yaml` configuration as a separate Web Service or Static Site.
+2. Add the environment variables below exactly as requested to the frontend service in your Render dashboard:
 
-#### Vercel Environment Variables
+#### Frontend Environment Variables
 
 | Variable Name | Required | Expected Format | Example |
 | :--- | :--- | :--- | :--- |
