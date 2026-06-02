@@ -3,7 +3,7 @@
 ## 1. Initial Checks (Local)
 - [x] Codebase audited (no API keys, sensitive tokens committed)
 - [x] `npm run build` succeeds locally
-- [x] `.env.example` templates verify the exact schema
+- [x] `.env.local` templates verify the exact schema
 - [x] Tested locally via `npm run dev` with Chrome DevTools MCP (0 errors, 1 warning for THREE.Clock deprecation)
 
 ## 2. GitHub Deployment
@@ -20,16 +20,13 @@
 - [ ] Set up Firebase Storage bucket and apply rules
 - [ ] Generate a Service Account JSON for Render backend
 
-## 4. Render Deployment (Backend)
-- [ ] Create a new "Web Service" from the GitHub repo
-- [ ] Specify Root Directory as `backend`
+## 4. Render Deployment (Single Web Service)
+- [ ] Create a new "Web Service" from the GitHub repo, or use `render.yaml`
 - [ ] Build command: `npm install && npm run build`
 - [ ] Start command: `npm start`
-- [ ] Inject required Backend Environment Variables
+- [ ] Inject required Frontend and Backend Environment Variables (including Gemini, Alpha Vantage, and Firebase variables)
 - [ ] Wait for `Live` status and copy the `.onrender.com` URL
 
-## 5. Render Deployment (Frontend)
-- [ ] Ensure `render.yaml` is configured to deploy the `frontend` service
-- [ ] Inject required Frontend Environment Variables into the Render frontend service
-- [ ] Inject `NEXT_PUBLIC_API_URL` matching the Render backend URL
-- [ ] Deploy and verify the live production site
+## 5. Verification
+- [ ] Ensure API endpoints return successfully.
+- [ ] Verify frontend authentication behaves seamlessly.

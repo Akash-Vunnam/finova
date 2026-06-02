@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: finova-backend
+    name: finova-fullstack
     env: node
     buildCommand: npm install && npm run build
-    startCommand: cd backend && npm start
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
@@ -15,15 +15,6 @@ services:
         sync: false
       - key: FIREBASE_SERVICE_ACCOUNT_KEY
         sync: false
-  
-  - type: web
-    name: finova-frontend
-    env: node
-    buildCommand: npm install && cd frontend && npm run build
-    startCommand: cd frontend && npm run start
-    envVars:
-      - key: NODE_ENV
-        value: production
       - key: NEXT_PUBLIC_FIREBASE_API_KEY
         sync: false
       - key: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
@@ -35,6 +26,4 @@ services:
       - key: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
         sync: false
       - key: NEXT_PUBLIC_FIREBASE_APP_ID
-        sync: false
-      - key: NEXT_PUBLIC_API_URL
         sync: false
