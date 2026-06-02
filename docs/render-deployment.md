@@ -22,8 +22,6 @@ GEMINI_API_KEY=your_gemini_api_key
 ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
 
 # Firebase Admin Setup
-FIREBASE_PROJECT_ID=your_project_id
-FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@your_project_id.iam.gserviceaccount.com
 
 # Copy the entire contents of the Firebase Service Account JSON file as a single line string
 # Base64 is recommended to avoid line-break errors

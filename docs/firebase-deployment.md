@@ -21,4 +21,4 @@ Finova uses Firebase for its core Authentication and Firestore database manageme
    - Register a Web App. Copy the `firebaseConfig` object variables and paste them into your Render Environment Variables for the frontend service (`NEXT_PUBLIC_FIREBASE_*`).
    - Go to Project Settings -> Service Accounts.
    - Click **Generate New Private Key**. A JSON file will download.
-   - Copy the *entire contents* of this JSON file, remove all newlines so it becomes a single string, and paste it into the Render Environment Variables for the backend service as `FIREBASE_SERVICE_ACCOUNT_KEY`.
+   - Copy the *entire contents* of this JSON file, remove all newlines so it becomes a single string (or encode it in Base64), and paste it into the Render Environment Variables for the service as `FIREBASE_SERVICE_ACCOUNT_KEY`.
