@@ -25,7 +25,7 @@ if (!admin.apps.length) {
           credential: admin.credential.cert(serviceAccount),
         });
         firebaseStatus = 'connected';
-        console.log('✅ Firebase Admin SDK initialized successfully.');
+        console.log(`✅ Firebase Admin SDK initialized successfully. (Project ID: ${serviceAccount.project_id || 'unknown'})`);
       } catch (parseError) {
         console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT_KEY. Ensure it is valid JSON or Base64 encoded JSON.');
         console.error('Error details:', parseError instanceof Error ? parseError.message : String(parseError));
