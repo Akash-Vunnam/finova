@@ -5,8 +5,9 @@ Finova's frontend is a standard Next.js App Router application optimized nativel
 ## Deployment Steps
 1. Log into your Vercel account.
 2. Click **Add New...** -> **Project**.
-3. Import the `finova-app` repository you created on GitHub.
-4. **CRITICAL:** Set the **Root Directory** to `frontend`.
+3. Import the `finova` repository you created on GitHub.
+4. **CRITICAL:** Open the **Build and Output Settings** and set the **Root Directory** to `frontend`. 
+   *(Note: Do NOT add a `vercel.json` file. Vercel automatically detects the Next.js App Router configuration and handles API rewrites via `next.config.ts` natively).*
 5. Open the **Environment Variables** section and add the following:
 
 ### Required Frontend Environment Variables
@@ -25,4 +26,4 @@ Wait until your Render backend is deployed before adding this (or add it and red
 NEXT_PUBLIC_API_URL=https://finova-backend.onrender.com
 ```
 
-6. Click **Deploy**. Vercel will automatically run `npm run build` inside the `frontend` folder and deploy your assets.
+6. Click **Deploy**. Vercel will automatically run `npm run build` inside the `frontend` folder and deploy your assets securely.
