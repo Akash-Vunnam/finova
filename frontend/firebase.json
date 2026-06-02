@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "providers": {
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Finova India",
+        "supportEmail": "akashakash88013@gmail.com"
+      }
+    }
+  }
+}

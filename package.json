@@ -1,0 +1,22 @@
+{
+  "name": "finova-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@10.8.2",
+  "description": "Finova AI Investment Copilot Monorepo",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared",
+    "mcp/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.4"
+  }
+}
