@@ -13,12 +13,18 @@ if (!admin.apps.length) {
     } else {
       let serviceAccount;
       try {
+        let cleanedStr = serviceAccountStr.trim();
+        // Remove surrounding quotes if accidentally included
+        if ((cleanedStr.startsWith("'") && cleanedStr.endsWith("'")) || (cleanedStr.startsWith('"') && cleanedStr.endsWith('"'))) {
+          cleanedStr = cleanedStr.slice(1, -1);
+        }
+
         // Support both Base64 and raw JSON formats for Render compatibility
-        if (!serviceAccountStr.trim().startsWith('{')) {
-          const decoded = Buffer.from(serviceAccountStr, 'base64').toString('utf8');
-          serviceAccount = JSON.parse(decoded);
+        if (cleanedStr.startsWith('{')) {
+          serviceAccount = JSON.parse(cleanedStr);
         } else {
-          serviceAccount = JSON.parse(serviceAccountStr);
+          const decoded = Buffer.from(cleanedStr, 'base64').toString('utf8');
+          serviceAccount = JSON.parse(decoded);
         }
         
         admin.initializeApp({
