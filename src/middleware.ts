@@ -15,21 +15,13 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all protected app routes:
-     * - dashboard
-     * - portfolio
-     * - discover
-     * - ai-chat
-     * - profile
-     * - settings
-     * - stock
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     * - desktop-locked (the locked page)
      */
-    '/dashboard/:path*',
-    '/portfolio/:path*',
-    '/discover/:path*',
-    '/ai-chat/:path*',
-    '/profile/:path*',
-    '/settings/:path*',
-    '/stock/:path*'
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|desktop-locked).*)',
   ],
 };

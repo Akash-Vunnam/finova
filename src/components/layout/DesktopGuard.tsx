@@ -24,8 +24,8 @@ export default function DesktopGuard({ children }: { children: React.ReactNode }
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Allowed public routes where mobile is permitted
-  const isPublicRoute = pathname === '/' || pathname === '/desktop-locked';
+  // Allowed public routes where mobile is permitted (only the lock screen itself)
+  const isPublicRoute = pathname === '/desktop-locked';
 
   if (isMobile && !isPublicRoute) {
     return <DesktopOnlyUI />;
