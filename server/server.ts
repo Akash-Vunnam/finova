@@ -3,13 +3,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import next from 'next';
 
-import chatRouter from './server/routes/chat';
-import explainRouter from './server/routes/explain';
-import verdictRouter from './server/routes/verdict';
-import trendingRouter from './server/routes/trending';
-import portfolioRouter from './server/routes/portfolio';
-import stockRouter from './server/routes/stock';
-import { firebaseStatus } from './server/services/firebase-admin';
+import chatRouter from './routes/chat';
+import explainRouter from './routes/explain';
+import verdictRouter from './routes/verdict';
+import trendingRouter from './routes/trending';
+import portfolioRouter from './routes/portfolio';
+import stockRouter from './routes/stock';
+import { firebaseStatus } from './services/firebase-admin';
 
 dotenv.config({ path: '.env.local' });
 dotenv.config();

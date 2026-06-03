@@ -4,7 +4,7 @@
     "module": "CommonJS",
     "lib": ["ES2022", "DOM"],
     "outDir": "./dist-server",
-    "rootDir": "./",
+    "rootDir": "./server",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -12,6 +12,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true
   },
-  "include": ["server/**/*.ts", "server.ts"],
+  "include": ["server/**/*.ts"],
   "exclude": ["node_modules", "src", ".next"]
 }
