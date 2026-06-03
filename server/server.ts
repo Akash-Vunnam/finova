@@ -9,10 +9,11 @@ import verdictRouter from './routes/verdict';
 import trendingRouter from './routes/trending';
 import portfolioRouter from './routes/portfolio';
 import stockRouter from './routes/stock';
-import { firebaseStatus } from './services/firebase-admin';
+import { firebaseStatus, initFirebase } from './services/firebase-admin';
 
 dotenv.config({ path: '.env.local' });
 dotenv.config();
+initFirebase();
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });

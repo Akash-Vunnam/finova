@@ -7,7 +7,6 @@ import { AuthProvider } from '@/context/AuthContext';
 import AuthGuard from '@/components/auth/AuthGuard';
 
 import { ProfileSettingsProvider } from '@/context/ProfileSettingsContext';
-import DesktopGuard from '@/components/auth/DesktopGuard';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient({
@@ -22,11 +21,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ProfileSettingsProvider>
-          <DesktopGuard>
-            <AuthGuard>
-              {children}
-            </AuthGuard>
-          </DesktopGuard>
+          <AuthGuard>
+            {children}
+          </AuthGuard>
           <Toaster theme="dark" position="top-right" richColors />
         </ProfileSettingsProvider>
       </AuthProvider>
