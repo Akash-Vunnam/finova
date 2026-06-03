@@ -6,8 +6,6 @@ import Navbar from "@/components/layout/Navbar";
 import BottomNav from "@/components/layout/BottomNav";
 import NextTopLoader from 'nextjs-toploader';
 import { headers } from "next/headers";
-import DeviceBlocker from "@/components/DeviceBlocker";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -20,8 +18,6 @@ const geistMono = Geist_Mono({
 
 import CommandPalette from "@/components/ui/CommandPalette";
 import ConstellationBackground from "@/components/ui/ConstellationBackground";
-import { CustomCursor } from "@/components/custom-cursor";
-
 export const metadata: Metadata = {
   title: "Finova - AI Investment Copilot",
   description: "Invest smarter with AI-powered insights, real-time data, and a stunning UI.",
@@ -32,30 +28,23 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = await headers();
-  const userAgent = headersList.get("user-agent") || "";
-  const isMobileServer = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Tablet/i.test(userAgent);
-
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-finova-navy text-foreground selection:bg-finova-purple/30">
-        <CustomCursor />
         <NextTopLoader color="#8b5cf6" showSpinner={false} height={3} />
         
         {/* Global ambient background */}
         <ConstellationBackground />
         
-        <DeviceBlocker isMobileServer={isMobileServer}>
-          <Providers>
-            <Navbar />
-            <CommandPalette />
-            <main className="flex-1 pb-16 md:pb-0 md:pt-16 relative z-10 page-content">
-              {children}
-            </main>
-            <BottomNav />
-          </Providers>
-        </DeviceBlocker>
+        <Providers>
+          <Navbar />
+          <CommandPalette />
+          <main className="flex-1 pb-16 md:pb-0 md:pt-16 relative z-10 page-content">
+            {children}
+          </main>
+          <BottomNav />
+        </Providers>
       </body>
     </html>
   );
