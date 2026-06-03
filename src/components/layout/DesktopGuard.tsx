@@ -1,35 +1,34 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { usePathname } from 'next/navigation';
 import DesktopOnlyUI from '@/components/ui/DesktopOnlyUI';
 
 export default function DesktopGuard({ children }: { children: React.ReactNode }) {
-  // Start with false to prevent SSR hydration mismatch.
-  // We'll update it immediately on the client if it's a mobile viewport.
-  const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      // 1024px is standard desktop breakpoint (Tailwind lg)
-      setIsMobile(window.innerWidth < 1024);
-    };
-
-    // Initial check
-    checkScreenSize();
-
-    // Listen for window resize
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
-
-  // Allowed public routes where mobile is permitted (only the lock screen itself)
+  
+  // The only route that naturally shows the lock screen without the guard wrapper.
   const isPublicRoute = pathname === '/desktop-locked';
 
-  if (isMobile && !isPublicRoute) {
-    return <DesktopOnlyUI />;
+  if (isPublicRoute) {
+    return <>{children}</>;
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      {/* 
+        Show lock screen below 980px. 
+        Mobile browsers in "Desktop Site" mode typically set viewport to 980px.
+        Tablets in portrait are typically 768px/820px, which will remain blocked.
+      */}
+      <div className="block min-[980px]:hidden fixed inset-0 z-[99999] bg-finova-navy">
+        <DesktopOnlyUI />
+      </div>
+      
+      {/* Show app content at 980px and above */}
+      <div className="hidden min-[980px]:block h-full w-full">
+        {children}
+      </div>
+    </>
+  );
 }

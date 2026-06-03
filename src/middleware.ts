@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const isMobileOrTablet = device.type === 'mobile' || device.type === 'tablet';
 
   if (isMobileOrTablet) {
-    return NextResponse.redirect(new URL('/desktop-locked', request.url));
+    return NextResponse.rewrite(new URL('/desktop-locked', request.url));
   }
 
   return NextResponse.next();
