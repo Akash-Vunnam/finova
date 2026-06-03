@@ -18,6 +18,8 @@ const geistMono = Geist_Mono({
 
 import CommandPalette from "@/components/ui/CommandPalette";
 import ConstellationBackground from "@/components/ui/ConstellationBackground";
+import DesktopGuard from "@/components/layout/DesktopGuard";
+
 export const metadata: Metadata = {
   title: "Finova - AI Investment Copilot",
   description: "Invest smarter with AI-powered insights, real-time data, and a stunning UI.",
@@ -38,12 +40,14 @@ export default async function RootLayout({
         <ConstellationBackground />
         
         <Providers>
-          <Navbar />
-          <CommandPalette />
-          <main className="flex-1 pb-16 md:pb-0 md:pt-16 relative z-10 page-content">
-            {children}
-          </main>
-          <BottomNav />
+          <DesktopGuard>
+            <Navbar />
+            <CommandPalette />
+            <main className="flex-1 pb-16 md:pb-0 md:pt-16 relative z-10 page-content">
+              {children}
+            </main>
+            <BottomNav />
+          </DesktopGuard>
         </Providers>
       </body>
     </html>
