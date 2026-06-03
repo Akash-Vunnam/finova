@@ -27,12 +27,8 @@ app.prepare().then(() => {
   server.use(express.json());
 
   // Health check
-  server.get('/health', (req, res) => {
-    res.status(200).json({ 
-      status: 'ok',
-      firebase: firebaseStatus,
-      timestamp: new Date().toISOString()
-    });
+  server.get('/healthz', (req, res) => {
+    res.status(200).json({ status: 'ok' });
   });
 
   // API Routes
@@ -48,8 +44,12 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.listen(port, () => {
-    console.log(`> Ready on http://localhost:${port}`);
+  server.listen(port as number, "0.0.0.0", () => {
+    console.log("Server starting...");
+    console.log("PORT =", process.env.PORT || 10000);
+    console.log("NODE_ENV =", process.env.NODE_ENV);
+    console.log("Health endpoint ready");
+    console.log(`> Ready on http://0.0.0.0:${port}`);
   });
 }).catch((err) => {
   console.error('Error starting server:', err);

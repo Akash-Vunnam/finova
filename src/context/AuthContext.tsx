@@ -27,6 +27,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const [isSigningIn, setIsSigningIn] = useState(false);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setUser(firebaseUser);
@@ -37,6 +39,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signInWithGoogle = async () => {
+    if (isSigningIn) return;
+    
+    setIsSigningIn(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
@@ -63,12 +68,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       toast.success("Signed in successfully");
     } catch (error: any) {
       console.error("Auth error:", error);
+      
+      if (error.code === 'auth/cancelled-popup-request') {
+        // User closed the popup before finishing, or we triggered a duplicate request - just silently ignore it
+        return;
+      }
+      
       if (error.code === 'auth/popup-blocked') {
         toast.error("Popup blocked. Please allow popups for this site.");
       } else {
         toast.error("Authentication failed. Please try again.");
       }
       throw error;
+    } finally {
+      setIsSigningIn(false);
     }
   };
 

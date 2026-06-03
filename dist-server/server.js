@@ -13,7 +13,6 @@ const verdict_1 = __importDefault(require("./server/routes/verdict"));
 const trending_1 = __importDefault(require("./server/routes/trending"));
 const portfolio_1 = __importDefault(require("./server/routes/portfolio"));
 const stock_1 = __importDefault(require("./server/routes/stock"));
-const firebase_admin_1 = require("./server/services/firebase-admin");
 dotenv_1.default.config({ path: '.env.local' });
 dotenv_1.default.config();
 const dev = process.env.NODE_ENV !== 'production';
@@ -25,12 +24,8 @@ app.prepare().then(() => {
     server.use((0, cors_1.default)());
     server.use(express_1.default.json());
     // Health check
-    server.get('/health', (req, res) => {
-        res.status(200).json({
-            status: 'ok',
-            firebase: firebase_admin_1.firebaseStatus,
-            timestamp: new Date().toISOString()
-        });
+    server.get('/healthz', (req, res) => {
+        res.status(200).json({ status: 'ok' });
     });
     // API Routes
     server.use('/api/ai/chat', chat_1.default);
@@ -43,8 +38,12 @@ app.prepare().then(() => {
     server.all('*', (req, res) => {
         return handle(req, res);
     });
-    server.listen(port, () => {
-        console.log(`> Ready on http://localhost:${port}`);
+    server.listen(port, "0.0.0.0", () => {
+        console.log("Server starting...");
+        console.log("PORT =", process.env.PORT || 10000);
+        console.log("NODE_ENV =", process.env.NODE_ENV);
+        console.log("Health endpoint ready");
+        console.log(`> Ready on http://0.0.0.0:${port}`);
     });
 }).catch((err) => {
     console.error('Error starting server:', err);
