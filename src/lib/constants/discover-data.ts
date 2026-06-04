@@ -67,7 +67,7 @@ export const TRENDING_NEWS: NewsItem[] = [
     title: "Indian IT sector sees record margins amidst AI adoption",
     summary: "TCS, Infosys, and Wipro report highest operating margins in 8 quarters as AI-led automation reduces delivery costs.",
     readTime: "4 min read",
-    imageUrl: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=400&h=300&fit=crop",
+    imageUrl: "/trending-news/technology.jpg",
     url: "https://m.economictimes.com/tech/information-tech/indian-it-faces-ai-reset-as-top-5-firms-post-mixed-fy26/articleshow/130531230.cms"
   },
   {
@@ -78,7 +78,7 @@ export const TRENDING_NEWS: NewsItem[] = [
     title: "RBI hints at stable repo rates for upcoming quarter",
     summary: "Governor Das signals no immediate rate cuts as inflation hovers near 4.8%, maintaining focus on price stability.",
     readTime: "3 min read",
-    imageUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=400&fit=crop",
+    imageUrl: "/trending-news/economy.jpg",
     url: "https://www.livemint.com/money/personal-finance/rbi-monetary-policy-next-week-what-fixed-income-investors-should-expect-heres-what-experts-say-11779970135356.html"
   },
   {
@@ -89,7 +89,7 @@ export const TRENDING_NEWS: NewsItem[] = [
     title: "Tata Motors EV sales hit new milestone in domestic market",
     summary: "Tata Motors sells 8,500 electric vehicles in May, capturing 62% market share as charging infrastructure expands.",
     readTime: "5 min read",
-    imageUrl: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=400&fit=crop",
+    imageUrl: "/trending-news/automotive.jpeg",
     url: "https://www.moneycontrol.com/automobile/tata-motors-to-raise-ev-production-capacity-by-50-amid-demand-surge-md-ceo-shailesh-chandra-article-13934852.html"
   },
   {
@@ -100,7 +100,7 @@ export const TRENDING_NEWS: NewsItem[] = [
     title: "SBI reports highest quarterly profit, declares ₹7.10 dividend",
     summary: "State Bank of India posts record net profit of ₹17,666 Cr in Q4, up 24% YoY. Board recommends final dividend of ₹7.10 per share.",
     readTime: "3 min read",
-    imageUrl: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400&h=400&fit=crop",
+    imageUrl: "/trending-news/banking.jpg",
     url: "https://www.business-standard.com/markets/news/sbi-q4-results-preview-fy26-profit-nii-dividend-estimates-126050600115_1.html"
   }
 ];
