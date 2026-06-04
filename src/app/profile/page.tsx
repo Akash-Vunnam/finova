@@ -114,12 +114,12 @@ export default function ProfilePage() {
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.1, duration: 0.5 }}
-          className="mb-12"
+          className="mb-12 relative z-50"
         >
-          <div className="relative bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-8 overflow-hidden shadow-[0_0_50px_rgba(139,92,246,0.15)]">
+          <div className="relative z-50 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-8 shadow-[0_0_50px_rgba(139,92,246,0.15)]">
             
             {/* Optional: subtle inner gradient glow - static only */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1e1b4b]/50 via-[#0f172a]/50 to-[#020617]/50 pointer-events-none" />
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#1e1b4b]/50 via-[#0f172a]/50 to-[#020617]/50 pointer-events-none" />
             
             <div className="relative z-10 flex items-start justify-between">
               <div className="flex-1">
@@ -152,8 +152,7 @@ export default function ProfilePage() {
                 </p>
               </div>
               
-              {/* Avatar - static, no hover blur */}
-              <div className="relative flex-shrink-0">
+              <div className="relative flex-shrink-0 z-50">
                 <AvatarUploader />
               </div>
             </div>
