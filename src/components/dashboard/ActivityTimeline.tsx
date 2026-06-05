@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, DollarSign, Wallet, RefreshCw, ArrowRight } from 'lucide-react';
 import { RippleEffect } from './RippleEffect';
+import { ViewAllActivityDrawer } from '../drawers/ViewAllActivityDrawer';
 
 const recentActivity = [
   { id: 1, type: 'buy', asset: 'TCS', amount: '₹3,200', shares: '4.5', time: '2 hours ago', icon: DollarSign, color: 'text-finova-green', bg: 'bg-[#10b981]/15', glow: '#10b981' },
@@ -14,6 +15,7 @@ const recentActivity = [
 
 export const ActivityTimeline = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <div className="relative overflow-hidden bg-white/[0.03] backdrop-blur-[20px] saturate-[180%] border border-white/[0.08] rounded-2xl p-6 shadow-2xl transition-all duration-300">
@@ -44,10 +46,12 @@ export const ActivityTimeline = () => {
         </div>
         
         {/* View All button sliding arrow */}
-        <RippleEffect className="flex items-center gap-1 text-xs font-bold text-finova-purple hover:text-[#a78bfa] transition-colors group/view">
-          <span>View All</span>
-          <ArrowRight size={14} className="transition-transform duration-300 group-hover/view:translate-x-1" />
-        </RippleEffect>
+        <div onClick={() => setIsDrawerOpen(true)} role="button">
+          <RippleEffect className="flex items-center gap-1 text-xs font-bold text-finova-purple hover:text-[#a78bfa] transition-colors group/view cursor-pointer">
+            <span>View All</span>
+            <ArrowRight size={14} className="transition-transform duration-300 group-hover/view:translate-x-1" />
+          </RippleEffect>
+        </div>
       </div>
       
       <div className="relative pl-8 pb-2">
@@ -191,6 +195,7 @@ export const ActivityTimeline = () => {
           ))}
         </div>
       </div>
+      <ViewAllActivityDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
     </div>
   );
 };
